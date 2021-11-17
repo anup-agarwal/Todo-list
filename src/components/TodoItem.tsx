@@ -23,8 +23,11 @@ const TodoItem: React.FC<ITodoItemProps> = ({
         justifyContent: "space-between",
         alignItems: "center",
       }}
+      className="todoItem"
     >
-      <p style={{ color: "#333" }}>{item}</p>
+      <p style={{ color: "#333" }} className="todoItemText">
+        {item}
+      </p>
       <div
         style={{
           backgroundColor: "red",
@@ -33,6 +36,7 @@ const TodoItem: React.FC<ITodoItemProps> = ({
           padding: "10px",
           borderRadius: "4px",
         }}
+        className="todoItemDelete"
         onClick={() => onDeleteClick(id)}
       >
         X

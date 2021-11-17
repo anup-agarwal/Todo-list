@@ -16,6 +16,7 @@ const TodoInputBox: React.FC<ITodoInputBoxProps> = ({
   return (
     <div style={{ display: "flex" }}>
       <input
+        className="inputBox"
         style={{
           boxSizing: "border-box",
           flexGrow: 4,
@@ -33,6 +34,7 @@ const TodoInputBox: React.FC<ITodoInputBoxProps> = ({
         onChange={onInputChange}
       />
       <button
+        className="addButton"
         style={{
           flexGrow: 1,
           backgroundColor: "transparent",

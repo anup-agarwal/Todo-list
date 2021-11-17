@@ -9,6 +9,7 @@ interface ITodoItemsProps {
 const TodoItems: React.FC<ITodoItemsProps> = ({ items, onDeleteClick }) => {
   return (
     <div
+      className="todoItems"
       style={{ overflow: "scroll", scrollbarWidth: "none", maxHeight: "400px" }}
     >
       {items.length ? (

@@ -19,13 +19,11 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
     setCurrentTodo({ item: "", id: "" });
   };
 
-  const deleteTodoHandler = (idToDelete: string) => {
+  const deleteTodoHandler = (idToDelete: string) =>
     setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete));
-  };
 
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     setCurrentTodo((curr) => ({ ...curr, item: event.target.value.trim() }));
-  };
 
   return (
     <Fragment>
