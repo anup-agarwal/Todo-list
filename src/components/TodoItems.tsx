@@ -1,4 +1,5 @@
 import ITodoItem from "../interfaces/ITodoItem";
+import TodoItem from "./TodoItem";
 
 interface ITodoItemsProps {
   items: ITodoItem[];
@@ -11,34 +12,8 @@ const TodoItems: React.FC<ITodoItemsProps> = ({ items, onDeleteClick }) => {
       style={{ overflow: "scroll", scrollbarWidth: "none", maxHeight: "400px" }}
     >
       {items.length ? (
-        items.map(({ id, item }) => (
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              marginTop: "30px",
-              padding: "30px",
-              boxSizing: "border-box",
-              borderRadius: "5px",
-              backgroundColor: "#F0EFE9",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <p style={{ color: "#5A5E6D" }}>{item}</p>
-            <div
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                cursor: "pointer",
-                padding: "10px",
-                borderRadius: "4px",
-              }}
-              onClick={() => onDeleteClick(id)}
-            >
-              X
-            </div>
-          </div>
+        items.map((todoItem) => (
+          <TodoItem todoItem={todoItem} onDeleteClick={onDeleteClick} />
         ))
       ) : (
         <div
