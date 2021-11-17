@@ -39,8 +39,9 @@ const TodoInputBox: React.FC<ITodoInputBoxProps> = ({
           border: "1px solid #00B74A",
           color: "#00B74A",
           borderRadius: "5px",
-          cursor: "pointer",
+          cursor: value.trim().length === 0 ? "not-allowed" : "pointer",
         }}
+        disabled={value.trim().length === 0}
         onClick={onButtonClick}
       >
         {buttonText}

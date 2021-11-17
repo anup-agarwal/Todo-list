@@ -24,7 +24,7 @@ const TodoItem: React.FC<ITodoItemProps> = ({
         alignItems: "center",
       }}
     >
-      <p style={{ color: "#5A5E6D" }}>{item}</p>
+      <p style={{ color: "#333" }}>{item}</p>
       <div
         style={{
           backgroundColor: "red",

@@ -24,7 +24,7 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
   };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentTodo((curr) => ({ ...curr, item: event.target.value }));
+    setCurrentTodo((curr) => ({ ...curr, item: event.target.value.trim() }));
   };
 
   return (
