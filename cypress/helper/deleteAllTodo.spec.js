@@ -4,7 +4,7 @@ const deleteAllTodo = () => {
   cy.get(".todoItems")
     .find(".todoItem")
     .find(".todoItemDelete")
-    .click({ multiple: true });
+    .each((ele) => cy.wrap(ele).click());
 };
 
 export default deleteAllTodo;
