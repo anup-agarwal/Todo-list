@@ -14,7 +14,7 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
   const addTodoHandler = () => {
     setTodoItemList((oldTodoList) => [
       ...oldTodoList,
-      { item: currentTodo.item, id: uuid() },
+      { item: currentTodo.item.trim(), id: uuid() },
     ]);
     setCurrentTodo({ item: "", id: "" });
   };
@@ -23,7 +23,7 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
     setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete));
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setCurrentTodo((curr) => ({ ...curr, item: event.target.value.trim() }));
+    setCurrentTodo((curr) => ({ ...curr, item: event.target.value }));
 
   return (
     <Fragment>

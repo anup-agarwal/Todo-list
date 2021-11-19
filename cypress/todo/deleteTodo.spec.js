@@ -7,7 +7,7 @@ import deleteTodo from "../helper/deleteTodo.spec";
 describe("Should delete todo", () => {
   it("adds and deletes todo", () => {
     cy.visit("/");
-    addTodo(`HelloWorld`);
+    addTodo(`Hello World`);
     deleteTodo();
   });
 });
