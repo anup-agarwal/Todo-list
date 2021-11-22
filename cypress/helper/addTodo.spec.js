@@ -1,9 +1,25 @@
 /// <reference types="cypress"/>
 
-const addTodo = (text) => {
-  cy.get(".inputBox").click().type(text, { force: true });
-  cy.get(".addButton").click();
-  cy.get(".todoItems").find(".todoItem").last().should("contain.html", text);
+export const addTodoSuccessfully = (text) => {
+  cy.intercept("POST", "/createtodo", (req) => {
+    req.reply({ ...req.body });
+  });
+  cy.get(".inputBox").type(text);
+  cy.get(".addButton")
+    .click()
+    .then(() =>
+      cy.get(".todoItems").find(".todoItem").last().should("contain.text", text)
+    );
 };
 
-export default addTodo;
+export const addTodoFailed = (text) => {
+  cy.intercept("POST", "/createtodo", (req) => {
+    req.reply({ statusCode: 400 });
+  });
+  cy.get(".inputBox").type(text);
+  cy.get(".addButton")
+    .click()
+    .then(() => {
+      cy.get(".todoItems").children().contains(".todoItem").then(cy.log);
+    });
+};

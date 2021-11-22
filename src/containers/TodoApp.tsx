@@ -1,8 +1,12 @@
-import React, { Fragment, useState } from "react";
+import { AxiosResponse } from "axios";
+import React, { Fragment, useEffect, useState } from "react";
 import TodoInputBox from "../components/TodoInputBox";
 import TodoItems from "../components/TodoItems";
 import ITodoItem from "../interfaces/ITodoItem";
 import { v4 as uuid } from "uuid";
+import createTodo from "../apis/createTodo";
+import getTodos from "../apis/getTodos";
+import deleteTodo from "../apis/deleteTodo";
 
 const TodoApp: React.FC<{}> = (): JSX.Element => {
   const [TodoItemList, setTodoItemList] = useState<ITodoItem[]>([]);
@@ -11,16 +15,29 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
     id: "",
   });
 
+  useEffect(() => {
+    getTodos().then((_: AxiosResponse<ITodoItem[]>) => setTodoItemList(_.data));
+  }, []);
+
   const addTodoHandler = () => {
-    setTodoItemList((oldTodoList) => [
-      ...oldTodoList,
-      { item: currentTodo.item.trim(), id: uuid() },
-    ]);
-    setCurrentTodo({ item: "", id: "" });
+    createTodo(currentTodo)
+      .then((_) => {
+        setTodoItemList((oldTodoList) => [
+          ...oldTodoList,
+          { item: currentTodo.item.trim(), id: uuid() },
+        ]);
+        setCurrentTodo({ item: "", id: "" });
+      })
+      .catch(console.log);
   };
 
-  const deleteTodoHandler = (idToDelete: string) =>
-    setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete));
+  const deleteTodoHandler = (idToDelete: string) => {
+    deleteTodo(idToDelete)
+      .then((_) =>
+        setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete))
+      )
+      .catch(console.log);
+  };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     setCurrentTodo((curr) => ({ ...curr, item: event.target.value }));

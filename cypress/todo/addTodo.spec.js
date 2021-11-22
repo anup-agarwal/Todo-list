@@ -1,10 +1,19 @@
 /// <reference types="cypress"/>
 
-import addTodo from "../helper/addTodo.spec";
+import { addTodoFailed, addTodoSuccessfully } from "../helper/addTodo.spec";
+import { getTodoSuccessful } from "../helper/getTodo.spec";
 
-describe("Should add todo", () => {
-  it("click input box", () => {
+describe("Todo test suite", () => {
+  beforeEach(() => {
     cy.visit("/");
-    addTodo("Hello World");
+    getTodoSuccessful();
   });
+
+  it("Add Todo Successfully", () => {
+    addTodoSuccessfully("Hello Successful Todo");
+  });
+
+  // it("Fail to Add Todo", () => {
+  //   addTodoFailed("Hello Failed Todo");
+  // });
 });

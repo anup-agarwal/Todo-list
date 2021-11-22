@@ -1,13 +1,26 @@
 /// <reference types="cypress"/>
 
-import addTodo from "../helper/addTodo.spec";
-// import deleteAllTodo from "../helper/deleteAllTodo.spec";
-import deleteTodo from "../helper/deleteTodo.spec";
+import { addTodoSuccessfully } from "../helper/addTodo.spec";
+import {
+  deleteTodoFailed,
+  deleteTodoSuccessful,
+} from "../helper/deleteTodo.spec";
+import { getTodoSuccessful } from "../helper/getTodo.spec";
 
 describe("Should delete todo", () => {
-  it("adds and deletes todo", () => {
+  beforeEach(() => {
     cy.visit("/");
-    addTodo(`Hello World`);
-    deleteTodo();
   });
+
+  it("delete todo successfully", () => {
+    getTodoSuccessful();
+    addTodoSuccessfully(`Hello World`);
+    deleteTodoSuccessful();
+  });
+
+  // it("delete todo unsuccessfully", () => {
+  //   cy.visit("/");
+  //   addTodoSuccessfully(`Hello World`);
+  //   deleteTodoFailed();
+  // });
 });
