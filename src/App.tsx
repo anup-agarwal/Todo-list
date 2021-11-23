@@ -1,6 +1,7 @@
 import TodoApp from "./containers/TodoApp";
 import "./App.css";
 import Axios from "axios";
+import TodoContextProvider from "./contexts/TodoContextProvider";
 
 Axios.defaults.baseURL = process.env.REACT_APP_API;
 
@@ -22,6 +23,10 @@ Axios.interceptors.response.use(
   }
 );
 
-const App = () => <TodoApp />;
+const App = () => (
+  <TodoContextProvider>
+    <TodoApp />
+  </TodoContextProvider>
+);
 
 export default App;

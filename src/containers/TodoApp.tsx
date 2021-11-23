@@ -1,46 +1,32 @@
 import { AxiosResponse } from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import TodoInputBox from "../components/TodoInputBox";
 import TodoItems from "../components/TodoItems";
+import { TodoContext } from "../contexts/TodoContextProvider";
 import ITodoItem from "../interfaces/ITodoItem";
 import { v4 as uuid } from "uuid";
-import createTodo from "../apis/createTodo";
 import getTodos from "../apis/getTodos";
-import deleteTodo from "../apis/deleteTodo";
 
 const TodoApp: React.FC<{}> = (): JSX.Element => {
-  const [TodoItemList, setTodoItemList] = useState<ITodoItem[]>([]);
-  const [currentTodo, setCurrentTodo] = useState<ITodoItem>({
+  const initialCurrentTodo = {
     item: "",
     id: "",
-  });
+  };
+  const [currentTodo, setCurrentTodo] = useState<ITodoItem>(initialCurrentTodo);
+  const todoContext = useContext(TodoContext);
 
   useEffect(() => {
-    getTodos().then((_: AxiosResponse<ITodoItem[]>) => setTodoItemList(_.data));
+    getTodos().then((_: AxiosResponse<ITodoItem[]>) => console.log(_.data));
   }, []);
-
-  const addTodoHandler = () => {
-    createTodo(currentTodo)
-      .then((_) => {
-        setTodoItemList((oldTodoList) => [
-          ...oldTodoList,
-          { item: currentTodo.item.trim(), id: uuid() },
-        ]);
-        setCurrentTodo({ item: "", id: "" });
-      })
-      .catch(console.log);
-  };
-
-  const deleteTodoHandler = (idToDelete: string) => {
-    deleteTodo(idToDelete)
-      .then((_) =>
-        setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete))
-      )
-      .catch(console.log);
-  };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     setCurrentTodo((curr) => ({ ...curr, item: event.target.value }));
+
+  const addTodoHandler = (value: string): void => {
+    const newTodo: ITodoItem = { item: value, id: uuid() };
+    todoContext.addTodoHandler(newTodo);
+    setCurrentTodo(initialCurrentTodo);
+  };
 
   return (
     <Fragment>
@@ -74,11 +60,11 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
         >
           <TodoInputBox
             buttonText={"Add"}
-            onButtonClick={addTodoHandler}
             onInputChange={inputChangeHandler}
             value={currentTodo.item}
+            addTodoHandler={addTodoHandler}
           />
-          <TodoItems items={TodoItemList} onDeleteClick={deleteTodoHandler} />
+          <TodoItems />
         </div>
       </div>
     </Fragment>

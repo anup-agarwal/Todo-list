@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../contexts/TodoContextProvider";
 
 interface ITodoInputBoxProps {
   value: string;
   buttonText: string;
-  onButtonClick: () => void;
+  addTodoHandler: (value: string) => void;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TodoInputBox: React.FC<ITodoInputBoxProps> = ({
   value,
   buttonText,
-  onButtonClick,
   onInputChange,
+  addTodoHandler,
 }) => {
   return (
     <div style={{ display: "flex" }}>
@@ -44,7 +45,7 @@ const TodoInputBox: React.FC<ITodoInputBoxProps> = ({
           cursor: value.trim().length === 0 ? "not-allowed" : "pointer",
         }}
         disabled={value.trim().length === 0}
-        onClick={onButtonClick}
+        onClick={() => addTodoHandler(value)}
       >
         {buttonText}
       </button>

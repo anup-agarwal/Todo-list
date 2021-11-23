@@ -1,19 +1,18 @@
+import { useContext } from "react";
+import { TodoContext } from "../contexts/TodoContextProvider";
 import ITodoItem from "../interfaces/ITodoItem";
 import TodoItem from "./TodoItem";
 
-interface ITodoItemsProps {
-  items: ITodoItem[];
-  onDeleteClick: (id: string) => void;
-}
+const TodoItems: React.FC = () => {
+  const { items, deleteTodoHandler } = useContext(TodoContext);
 
-const TodoItems: React.FC<ITodoItemsProps> = ({ items, onDeleteClick }) => {
   return items.length ? (
     <div
       className="todoItems"
       style={{ overflow: "scroll", scrollbarWidth: "none", maxHeight: "400px" }}
     >
       {items.map((todoItem) => (
-        <TodoItem todoItem={todoItem} onDeleteClick={onDeleteClick} />
+        <TodoItem todoItem={todoItem} onDeleteClick={deleteTodoHandler} />
       ))}
     </div>
   ) : (
