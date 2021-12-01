@@ -5,14 +5,16 @@ import ITodoItem from "../interfaces/ITodoItem";
 
 interface IContextProviderProps {
   items: ITodoItem[];
-  addTodoHandler: (todo: ITodoItem) => void;
+  addTodoHandler: (todo: string) => void;
   deleteTodoHandler: (id: string) => void;
+  setTodoItemListFromAPI: (items: ITodoItem[]) => void;
 }
 
 const initialContextValue = {
   items: [],
-  addTodoHandler: (todo: ITodoItem): void => {},
+  addTodoHandler: (todo: string): void => {},
   deleteTodoHandler: (id: string): void => {},
+  setTodoItemListFromAPI: (items: ITodoItem[]): void => {},
 };
 
 export const TodoContext =
@@ -21,9 +23,11 @@ export const TodoContext =
 const TodoContextProvider: React.FC = ({ children }): JSX.Element => {
   const [TodoItemList, setTodoItemList] = useState<ITodoItem[]>([]);
 
-  const addTodoHandler = (todo: ITodoItem) => {
+  const addTodoHandler = (todo: string) => {
     createTodo(todo)
-      .then((_) => setTodoItemList((oldTodoList) => [...oldTodoList, todo]))
+      .then((res) =>
+        setTodoItemList((oldTodoList) => [...oldTodoList, res.data])
+      )
       .catch(console.log);
   };
 
@@ -35,9 +39,18 @@ const TodoContextProvider: React.FC = ({ children }): JSX.Element => {
       .catch(console.log);
   };
 
+  const setTodoItemListFromAPI = (items: ITodoItem[]): void => {
+    setTodoItemList(items);
+  };
+
   return (
     <TodoContext.Provider
-      value={{ items: TodoItemList, addTodoHandler, deleteTodoHandler }}
+      value={{
+        items: TodoItemList,
+        addTodoHandler,
+        deleteTodoHandler,
+        setTodoItemListFromAPI,
+      }}
     >
       {children}
     </TodoContext.Provider>

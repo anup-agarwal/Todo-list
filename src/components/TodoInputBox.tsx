@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { TodoContext } from "../contexts/TodoContextProvider";
+import React from "react";
 
 interface ITodoInputBoxProps {
   value: string;

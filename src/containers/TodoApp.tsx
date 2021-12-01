@@ -4,7 +4,6 @@ import TodoInputBox from "../components/TodoInputBox";
 import TodoItems from "../components/TodoItems";
 import { TodoContext } from "../contexts/TodoContextProvider";
 import ITodoItem from "../interfaces/ITodoItem";
-import { v4 as uuid } from "uuid";
 import getTodos from "../apis/getTodos";
 
 const TodoApp: React.FC<{}> = (): JSX.Element => {
@@ -16,15 +15,17 @@ const TodoApp: React.FC<{}> = (): JSX.Element => {
   const todoContext = useContext(TodoContext);
 
   useEffect(() => {
-    getTodos().then((_: AxiosResponse<ITodoItem[]>) => console.log(_.data));
+    getTodos().then((_: AxiosResponse<ITodoItem[]>) =>
+      todoContext.setTodoItemListFromAPI(_.data)
+    );
+    // eslint-disable-next-line
   }, []);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     setCurrentTodo((curr) => ({ ...curr, item: event.target.value }));
 
   const addTodoHandler = (value: string): void => {
-    const newTodo: ITodoItem = { item: value, id: uuid() };
-    todoContext.addTodoHandler(newTodo);
+    todoContext.addTodoHandler(value);
     setCurrentTodo(initialCurrentTodo);
   };
 

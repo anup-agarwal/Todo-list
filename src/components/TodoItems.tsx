@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { TodoContext } from "../contexts/TodoContextProvider";
-import ITodoItem from "../interfaces/ITodoItem";
 import TodoItem from "./TodoItem";
 
 const TodoItems: React.FC = () => {
