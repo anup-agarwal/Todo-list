@@ -23,11 +23,19 @@ const path = require("path");
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  return JSON.parse(
+  const configsJSON = JSON.parse(
     fs
       .readFileSync(
         path.join(__dirname, "..", "configFiles", config.env.filename)
       )
       .toString()
   );
+  const { REACT_APP_API, REACT_APP_FRONTEND } = configsJSON[config.env.stage];
+  return {
+    integrationFolder: "cypress/todo",
+    baseUrl: REACT_APP_FRONTEND,
+    env: {
+      BACKEND_API: REACT_APP_API,
+    },
+  };
 };

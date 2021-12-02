@@ -1,7 +1,0 @@
-{
-  "integrationFolder": "cypress/todo",
-  "baseUrl": "https://todo-list-3ywg.onrender.com/",
-  "env": {
-    "BACKEND_API": "https://todo-list-api.onrender.com/"
-  }
-}
