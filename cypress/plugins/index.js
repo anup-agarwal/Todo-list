@@ -24,11 +24,7 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   const configsJSON = JSON.parse(
-    fs
-      .readFileSync(
-        path.join(__dirname, "..", "configFiles", config.env.filename)
-      )
-      .toString()
+    fs.readFileSync(path.join(__dirname, "..", "..", "env.json")).toString()
   );
   const { REACT_APP_API, REACT_APP_FRONTEND } = configsJSON[config.env.stage];
   return {

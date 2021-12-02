@@ -5,30 +5,20 @@ import { deleteTodo } from "../helper/deleteTodo.spec";
 
 describe("Todo test suite", () => {
   before(() => {
-    cy.intercept("POST", "/createtodo").as("createTodoAPI");
-    cy.intercept("GET", "/todos").as("getTodosAPI");
+    // cy.intercept("POST", "/createtodo").as("createTodoAPI");
+    // cy.intercept("GET", "/todos").as("getTodosAPI");
   });
 
   beforeEach(() => {
     cy.visit("/");
   });
 
-  it("adds todo", () => {
-    addTodo("Hello Successful Todo");
-  });
+  it("adds todo", () => addTodo("Hello Successful Todo"));
 
-  it("deletes todo", () => {
+  it.only("deletes todo", () => {
     addTodo(`Hello World`);
-    // deleteTodo();
+    deleteTodo();
   });
-
-  // afterEach(() => {
-  //   deleteTodo();
-  // });
-
-  // it("Get Todo Successfully", () => {
-  //   getTodo();
-  // });
 
   after(() =>
     cy

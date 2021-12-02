@@ -26,7 +26,7 @@ const TodoItem: React.FC<ITodoItemProps> = ({
       className="todoItem"
     >
       <p style={{ color: "#333" }} className="todoItemText">
-        {item}
+        {item} {id}
       </p>
       <div
         style={{

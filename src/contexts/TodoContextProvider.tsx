@@ -34,7 +34,9 @@ const TodoContextProvider: React.FC = ({ children }): JSX.Element => {
   const deleteTodoHandler = (idToDelete: string) => {
     deleteTodo(idToDelete)
       .then((_) =>
-        setTodoItemList(TodoItemList.filter(({ id }) => id !== idToDelete))
+        setTodoItemList((TodoItemList) =>
+          TodoItemList.filter(({ id }) => id !== idToDelete)
+        )
       )
       .catch(console.log);
   };
