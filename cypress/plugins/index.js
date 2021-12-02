@@ -16,7 +16,18 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
+
+const fs = require("fs");
+const path = require("path");
+
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-}
+  return JSON.parse(
+    fs
+      .readFileSync(
+        path.join(__dirname, "..", "configFiles", config.env.filename)
+      )
+      .toString()
+  );
+};

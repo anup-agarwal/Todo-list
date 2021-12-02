@@ -1,0 +1,7 @@
+{
+  "integrationFolder": "cypress/todo",
+  "baseUrl": "http://localhost:3000",
+  "env": {
+    "BACKEND_API": "http://localhost:5000"
+  }
+}

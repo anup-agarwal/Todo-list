@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "cypress": "cypress open",
+    "cy:local": "cypress open --env filename=local.json",
+    "cy:staging": "cypress open --env filename=staging.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
